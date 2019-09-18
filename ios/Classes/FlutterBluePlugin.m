@@ -706,7 +706,11 @@ typedef NS_ENUM(NSUInteger, LogLevel) {
   [result setRemoteId:[peripheral.identifier UUIDString]];
   [result setCharacteristicUuid:[descriptor.characteristic.UUID fullUUIDString]];
   [result setServiceUuid:[descriptor.characteristic.service.UUID fullUUIDString]];
-  int value = [descriptor.value intValue];
+  int value = 0;
+  if ( [descriptor.value respondsToSelector:@selector(intValue)] )
+  {
+    value = [descriptor.value intValue];
+  }
   [result setValue:[NSData dataWithBytes:&value length:sizeof(value)]];
   return result;
 }
