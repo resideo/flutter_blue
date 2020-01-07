@@ -13,23 +13,13 @@ Bluetooth Low Energy plugin for Flutter.
   s.license          = { :file => '../LICENSE' }
   s.author           = { 'Paul DeMarco' => 'paulmdemarco@gmail.com' }
   s.source           = { :path => '.' }
-  s.source_files = 'Classes/**/*'
+  s.source_files = 'Classes/**/*.{h,m,swift}'
   s.public_header_files = 'Classes/**/*.h'
   s.dependency 'Flutter'
-  s.platform = :ios, '8.0'
   s.framework = 'CoreBluetooth'
-
-  protoc = '#{PODS_ROOT}/Pods/!ProtoCompiler/protoc'
-  objc_out = 'gen'
-  proto_in = '../protos'
-  s.prepare_command = <<-CMD
-    mkdir -p #{objc_out}
-    #{protoc} \
-        --objc_out=#{objc_out} \
-        --proto_path=#{proto_in} \
-        #{proto_in}/*.proto
-  CMD
-
+  s.ios.deployment_target = '10.0'
+  s.swift_version = '5.0'
+  
   s.subspec 'Protos' do |ss|
     ss.source_files = 'gen/**/*.pbobjc.{h,m}'
     ss.header_mappings_dir = '.'
