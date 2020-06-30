@@ -79,7 +79,6 @@ public class FlutterBluePlugin implements MethodCallHandler, RequestPermissionsR
      */
     public static void registerWith(Registrar registrar) {
         final FlutterBluePlugin instance = new FlutterBluePlugin(registrar);
-        registrar.addRequestPermissionsResultListener(instance);
     }
 
     FlutterBluePlugin(Registrar r){
@@ -153,6 +152,7 @@ public class FlutterBluePlugin implements MethodCallHandler, RequestPermissionsR
             {
                 if (ContextCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_FINE_LOCATION)
                         != PackageManager.PERMISSION_GRANTED) {
+                    registrar.addRequestPermissionsResultListener(this);
                     ActivityCompat.requestPermissions(
                             activity,
                             new String[] {
